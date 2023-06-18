@@ -92,6 +92,10 @@ button:focus-visible {
 
 /* Timer */
 
+.timer-container {
+  display: flex;
+}
+
 .timer-controls {
   display: flex;
   flex-direction: column;
@@ -104,6 +108,8 @@ button:focus-visible {
   background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  width: 129px;
+  height: 72px;
 }
 
 /* New Song Page */
@@ -113,12 +119,4 @@ button:focus-visible {
   flex-direction: row;
   gap: 100px;
   transform: scale(1.5);
-}
-
-.track-list {
-  flex-shrink: 0;
-}
-
-.timer {
-  flex-shrink: 0;
 }
