@@ -56,15 +56,15 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  /* :root {
     color: #213547;
     background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
-  }
+  } */
   button {
-    background-color: #f9f9f9;
+    color: #f9f9f9;
   }
 }
 
@@ -90,6 +90,47 @@ button:focus-visible {
   margin: 0.4em;
 }
 
+.home-subheading {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.home-body {
+  font-weight: 300;
+}
+
+.home-quote-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.home-quote {
+  font-size: 14px;
+  font-style: italic;
+  width: 550px;
+}
+
+.home-quote-photo {
+  width: 90px;
+  border-radius: 50px;
+}
+
+.home-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.secondary-button {
+  background-color: transparent;
+  border: 1px solid #1a1a1a;
+  box-shadow: inset 0 0 0 3px #1a1a1a;
+}
+
+
 /* Timer */
 
 .timer-container {
@@ -108,15 +149,22 @@ button:focus-visible {
   background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  width: 129px;
+  width: 138px;
   height: 72px;
 }
 
-/* New Song Page */
+/* Global */
 
-.new-song-container {
+.main-container {
   display: flex;
   flex-direction: row;
   gap: 100px;
   transform: scale(1.5);
+}
+
+/* Vocals */
+
+.vocals-text {
+  width: 200px;
+  font-size: 14px;
 }

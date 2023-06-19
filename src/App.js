@@ -2,14 +2,19 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home'
-import NewSong from './pages/NewSong';
+import Produce from './pages/Produce';
+import Arrange from './pages/Arrange';
+import Vocals from './pages/Vocals';
+
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/new-song" element={<NewSong />} />
+        <Route path="/produce" element={<Produce />} />
+        <Route path="/arrange" element={<Arrange />} />
+        <Route path="/vocals" element={<Vocals />} />
       </Routes>
     </Router>
   );

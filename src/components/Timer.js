@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-function Timer() {
-    const [time, setTime] = useState({ minutes: 15, seconds: 0 });
+function Timer(props) {
+    const [time, setTime] = useState({ minutes: props.minutes, seconds: 0 });
     const [isRunning, setIsRunning] = useState(false);
     const [buttonText, setButtonText] = useState('Play');
     const [buttonColor, setButtonColor] = useState('green');
@@ -38,15 +39,10 @@ function Timer() {
     };
   
     const handleRestart = () => {
-      setTime({ minutes: 15, seconds: 0 });
+      setTime({ minutes: props.minutes, seconds: 0 });
       setIsRunning(false);
       setButtonText('Play');
       setButtonColor('green');
-    };
-  
-    const handleNext = () => {
-      // Handle the "done" button click event here
-      // Add your custom logic or actions
     };
   
     return (
@@ -62,9 +58,11 @@ function Timer() {
           <button onClick={handleRestart}>
           Restart
           </button>
-          <button onClick={handleNext}>
-            Next →
-          </button>
+          <Link to={props.next}>
+            <button>
+              {props.next === "/" ? "Done" : "Next →"}
+            </button>
+          </Link>
         </div>
       </div>
     );
