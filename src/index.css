@@ -97,6 +97,7 @@ button:focus-visible {
 
 .home-body {
   font-weight: 300;
+  width: 750px;
 }
 
 .home-quote-container {
