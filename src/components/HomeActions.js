@@ -18,25 +18,27 @@ const HomeActions = () => {
     return (
         <>
             <div>
-                <label htmlFor="genre">Genre:</label>
                 <select id="genre" name="genre" defaultValue="" onChange={handleGenreChange}>
-                <option value="" disabled>
-                    Choose a genre...
+                <option value="" disabled selected>
+                    Choose a genre...&nbsp; 🔽 
                 </option>
-                <option value="alternative">Alternative Rock</option>
-                <option value="hiphop">Hip Hop/Rap</option>
-                <option value="electronic">Electronic</option>
+                <option value="alternative">Alt/Indie Rock 🎸</option>
+                <option value="hiphop">Hip Hop/Rap 🎤</option>
+                <option value="electronic">Electronic ⚡</option>
                 </select>
             </div>
             <div>
                 <label htmlFor="vocals">
-                Vocals?
+                Adding vocals? &nbsp;
                 </label>
-                <input type="checkbox" id="vocals" name="vocals" onChange={handleCheckboxChange}/>
+                <input type="checkbox" id="vocals" name="vocals" className="vocals-checkbox" onChange={handleCheckboxChange}/>
             </div>
-            <Link to="/produce">
+            <div>
+              <Link to="/produce">
                 <button className="primary-button">start</button>
-            </Link>
+              </Link>
+            </div>
+            
             {/* <button className="secondary-button">learn more</button> */}
         </>
     );
