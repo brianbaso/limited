@@ -19,10 +19,10 @@ const HomeActions = () => {
         <>
             <div>
                 <select id="genre" name="genre" defaultValue="" onChange={handleGenreChange}>
-                <option value="" disabled selected>
+                <option value="" disabled>
                     Choose a genre...&nbsp; 🔽 
                 </option>
-                <option value="alternative">Alt/Indie Rock 🎸</option>
+                <option value="rock">Alt/Indie Rock 🎸</option>
                 <option value="hiphop">Hip Hop/Rap 🎤</option>
                 <option value="electronic">Electronic ⚡</option>
                 </select>
