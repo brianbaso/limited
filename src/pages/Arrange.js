@@ -7,7 +7,7 @@ function Arrange() {
   const nextPage = isVocalsChecked ? "/vocals" : "/";
 
   return (
-    <div className="main-container">
+    <div className="b-container">
       <div>
           <h2>Arrange Your Track</h2>
           <ol>

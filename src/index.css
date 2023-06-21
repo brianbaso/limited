@@ -176,12 +176,14 @@ select:focus {
 }
 
 /* Global */
-
 .main-container {
+  transform: scale(1.5);
+}
+
+.b-container {
   display: flex;
   flex-direction: row;
   gap: 100px;
-  transform: scale(1.5);
 }
 
 /* Vocals */
@@ -189,4 +191,31 @@ select:focus {
 .vocals-text {
   width: 200px;
   font-size: 14px;
+}
+
+/* Progress Bar */
+
+.progress-container {
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+}
+
+.horizontal-list {
+  display: flex;
+  font-size: 10px;
+  margin: 0;
+  font-weight: 700;
+  color: rgb(107, 105, 105);
+  border: 1px solid rgba(141, 141, 141, 0.4);
+  border-radius: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.horizontal-list li {
+  margin-right: 30px; 
 }

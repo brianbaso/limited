@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 
@@ -6,8 +6,8 @@ const HomeActions = () => {
     const { updateGenre, updateIsVocalsChecked } = useContext(MyContext);
 
     const handleGenreChange = (event) => {
-        const selectedValue = event.target.value;
-        updateGenre(selectedValue);
+        const selectedGenre = event.target.value;
+        updateGenre(selectedGenre);
     };
 
     const handleCheckboxChange = (event) => {
