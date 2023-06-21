@@ -208,9 +208,9 @@ select:focus {
   display: flex;
   font-size: 10px;
   margin: 0;
-  font-weight: 700;
+  font-weight: 600;
   color: rgb(107, 105, 105);
-  border: 1px solid rgba(141, 141, 141, 0.4);
+  border: 2px solid rgba(141, 141, 141, 0.2);
   border-radius: 5px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -218,4 +218,9 @@ select:focus {
 
 .horizontal-list li {
   margin-right: 30px; 
+}
+
+.selected {
+  font-weight: 700;
+  color: rgb(225, 225, 225);
 }

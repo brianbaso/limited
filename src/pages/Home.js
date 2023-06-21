@@ -1,7 +1,16 @@
+import { useContext, useEffect } from 'react';
 import HomeActions from '../components/HomeActions.js';
 import pharrell from '../assets/images/pharrell.jpeg'
+import { MyContext } from '../MyContext.js';
 
 function Home() {
+    const { updateIsVocalsChecked, updateGenre } = useContext(MyContext);
+
+    useEffect(() => {
+      updateIsVocalsChecked(false);
+      updateGenre("rock");
+    }, [])
+
     return (
         <>
           <div>

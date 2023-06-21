@@ -1,12 +1,12 @@
 import Timer from '../components/Timer.js';
 import TrackList from '../components/TrackList.js';
-import ProgressBar from '../components/ProgressBar.js'
+import ProgressBar from '../components/ProgressBar.js';
 
 function Produce() {
   return (
     <div className="main-container">
       <div className="a-container">
-        <ProgressBar />
+        <ProgressBar step={"production"} />
       </div>
       <div className="b-container">
         <TrackList />
