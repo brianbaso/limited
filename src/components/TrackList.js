@@ -1,16 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { MyContext } from '../MyContext';
 
-const TRACK_OPTIONS = [
-  'Lead Synth',
-  'Rhythm Synth',
-  'Lead Guitar',
-  'Rhythm Guitar',
-  'Bass',
-  'Drums',
-];
+
+const TRACK_OPTIONS = {
+  "rock": [
+    'Lead Synth',
+    'Rhythm Synth',
+    'Lead Guitar',
+    'Rhythm Guitar',
+    'Bass',
+    'Drums',
+  ],
+  "hiphop": [
+    'Lead Synth',
+    'Rhythm Synth',
+    'Guitar',
+    'Sample',
+    'Bass',
+    'Drums',
+  ],
+  "electronic": [
+    'Lead Synth',
+    'Rhythm Synth',
+    'Guitar',
+    'Shaker',
+    'Bass',
+    'Drums',
+  ],
+}
 
 function TrackList() {
   const [tracks, setTracks] = useState([]);
+  const { genre } = useContext(MyContext);
 
   useEffect(() => {
     generateTracks();
@@ -20,7 +41,7 @@ function TrackList() {
     const selectedTracks = [];
 
     while (selectedTracks.length < 3) {
-      const randomTrack = TRACK_OPTIONS[Math.floor(Math.random() * TRACK_OPTIONS.length)];
+      const randomTrack = TRACK_OPTIONS[genre][Math.floor(Math.random() * TRACK_OPTIONS[genre].length)];
 
       if (
         !selectedTracks.includes(randomTrack) &&

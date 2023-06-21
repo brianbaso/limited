@@ -46,7 +46,7 @@ function Timer(props) {
     };
   
     return (
-      <div classname="timer-container">
+      <div className="timer-container">
         <div className="timer-controls">
           <span className="timer-digits">
             {time.minutes.toString().padStart(2, '0')}:
