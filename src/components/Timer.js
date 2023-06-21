@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import beep from '../assets/sounds/beep.mp3'
 
 function Timer(props) {
     const [time, setTime] = useState({ minutes: props.minutes, seconds: 0 });
@@ -17,6 +18,7 @@ function Timer(props) {
             setButtonText('Play');
             setButtonColor('green');
             clearInterval(intervalId);
+            playBeepSound();
           } else {
             if (time.seconds === 0) {
               setTime({ minutes: time.minutes - 1, seconds: 59 });
@@ -45,6 +47,11 @@ function Timer(props) {
       setButtonColor('green');
     };
   
+    const playBeepSound = () => {
+      const audio = new Audio(beep);
+      audio.play();
+    };
+
     return (
       <div className="timer-container">
         <div className="timer-controls">
