@@ -38,6 +38,11 @@ const HomeActions = () => {
                 <button className="primary-button">start</button>
               </Link>
             </div>
+            <div>
+                <Link to="/settings">
+                    <u>settings</u>
+                </Link>
+            </div>
             
             {/* <button className="secondary-button">learn more</button> */}
         </>
