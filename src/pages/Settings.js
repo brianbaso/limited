@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Settings() {
     const navigate = useNavigate();
-    
+
     const handleSignOut = async () => {
       const auth = getAuth();
       signOut(auth).then(() => {
@@ -13,6 +13,7 @@ function Settings() {
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
+        console.log('sign out error', error)
       });
     }
     
