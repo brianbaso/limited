@@ -7,7 +7,9 @@ function Start() {
         <>
           <div>
             <h1 className="floating-heading">limited 🥀</h1>
-            <HomeActions />
+            <div className="start-button-container">
+              <HomeActions />
+            </div>
           </div>
         </>
     );

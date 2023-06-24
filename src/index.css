@@ -241,3 +241,24 @@ select:focus {
 .sign-out {
   color: darkred;
 }
+
+/* Start */
+
+.start-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Sounds */
+
+.sounds-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sounds-header {
+  font-size: 28px;
+  font-weight: 400;
+}

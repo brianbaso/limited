@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Start from './pages/Start';
 import Settings from './pages/Settings'
+import Sounds from './pages/Sounds'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/start" element={<Start />}/>
         <Route path="/settings" element={<Settings />}/>
+        <Route path="/sounds" element={<Sounds />}/>
       </Routes>
     </Router>
   );

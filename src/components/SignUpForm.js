@@ -11,7 +11,7 @@ const SignUpForm = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log('successful signup', user)
-      redirect("/start")
+      redirect("/sounds")
     } catch (error) {
       // Handle sign-up error
       console.log('error signing up', error)
