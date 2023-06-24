@@ -224,3 +224,20 @@ select:focus {
   font-weight: 700;
   color: rgb(225, 225, 225);
 }
+
+/* Settings */
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-link {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sign-out {
+  color: darkred;
+}

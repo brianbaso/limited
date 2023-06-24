@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSignIn = async () => {
       const auth = getAuth();
@@ -13,12 +14,13 @@ const SignIn = () => {
           // Signed in 
           const user = userCredential.user;
           console.log('User signed in:', user);
-          redirect("/start");
+          navigate("/start");
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.log('error', errorCode, errorMessage);
         });
   };
 
@@ -36,10 +38,10 @@ const SignIn = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleSignIn}>Sign Up</button>
+      <button onClick={handleSignIn}>Sign In →</button>
     </div>
   );
 
 };
 
-export default SignIn;
+export default SignInForm;

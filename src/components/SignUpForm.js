@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { auth, createUserWithEmailAndPassword } from '../firebase/firebase';
+import { redirect } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -10,6 +11,7 @@ const SignUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log('successful signup', user)
+      redirect("/start")
     } catch (error) {
       // Handle sign-up error
       console.log('error signing up', error)
@@ -35,4 +37,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

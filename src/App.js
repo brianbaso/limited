@@ -5,7 +5,10 @@ import Home from './pages/Home'
 import Produce from './pages/Produce';
 import Arrange from './pages/Arrange';
 import Vocals from './pages/Vocals';
-
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Start from './pages/Start';
+import Settings from './pages/Settings'
 
 function App() {
   return (
@@ -15,6 +18,10 @@ function App() {
         <Route path="/produce" element={<Produce />} />
         <Route path="/arrange" element={<Arrange />} />
         <Route path="/vocals" element={<Vocals />} />
+        <Route path="/signin" element={<SignIn />}/>
+        <Route path="/signup" element={<SignUp />}/>
+        <Route path="/start" element={<Start />}/>
+        <Route path="/settings" element={<Settings />}/>
       </Routes>
     </Router>
   );
