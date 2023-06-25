@@ -56,6 +56,7 @@ const SoundsList = () => {
               marginRight: '10px',
               marginLeft: '20px'
             }}
+            readOnly
           />
           <span>{item}</span>
         </div>

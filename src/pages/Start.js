@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import HomeActions from '../components/HomeActions.js';
+import { MyContext } from '../MyContext.js';
 
 function Start() {
+    const { updateIsVocalsChecked, updateGenre } = useContext(MyContext);
+
+    useEffect(() => {
+      updateIsVocalsChecked(false);
+      updateGenre("rock");
+    }, [])
 
     return (
         <>
