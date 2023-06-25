@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import SignUp from '../components/SignUpForm.js';
 import pharrell from '../assets/images/pharrell.jpeg'
 import { MyContext } from '../MyContext.js';
 import { Link } from 'react-router-dom';

@@ -6,7 +6,8 @@ function Start() {
     return (
         <>
           <div>
-            <h1 className="floating-heading">limited 🥀</h1>
+            <h1 className="start-heading floating-heading">limited 🥀</h1>
+            <p className="start-subtext">Let's cook... 🧪</p>
             <div className="start-button-container">
               <HomeActions />
             </div>

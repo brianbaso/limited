@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
 const SoundsList = () => {
-  const [checkedItems, setCheckedItems] = useState([]); // State to track checked items
+  const [checkedItems, setCheckedItems] = useState([
+    "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
+    "Brass", "Sub Bass", "Plucked Bass", "Lead Synth", "Pad Synth", "Choir",
+    "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
+  ]);
 
   const items = [
-    "Lead Synth", "Pad Synth", "Choir Synth", "Piano", "Electric Piano", "Bells",
-    "Organ", "Synth Keys", "Guitar", "Orchestral Strings", "Sub Bass", "Plucked Bass",
-    "Bass Guitar", "808 Bass", "Sample", "Brass", "Woodwinds", "Drums With Clap",
-    "Drums With Snare", "Drums (No Hi-hats)", "Drum Loop Sample", "Stock DAW Drums"
+    "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
+    "Brass", "Sub Bass", "Plucked Bass", "Lead Synth", "Pad Synth", "Choir",
+    "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
   ];
 
   const handleItemToggle = (item) => {
@@ -23,24 +26,36 @@ const SoundsList = () => {
       display: 'flex',
       flexDirection: 'row',
       flexWrap: 'wrap',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      paddingTop: '10px',
+      paddingBottom: '25px',
+      width: '850px'
     }}>
       {items.map((item) => (
         <div
+          className="sound-item"
           key={item}
           style={{
             display: 'flex',
             alignItems: 'center',
             margin: '5px',
-            width: '150px',
+            width: '160px',
             height: '50px',
-            backgroundColor: checkedItems.includes(item) ? 'lightblue' : 'grey',
+            borderRadius: '25px',
+            cursor: 'pointer',
+            fontWeight: '600',
+            backgroundColor: checkedItems.includes(item) ? '#535bf2' : 'grey',
           }}
+          onClick={() => handleItemToggle(item)}
         >
           <input
             type="checkbox"
             checked={checkedItems.includes(item)}
-            onChange={() => handleItemToggle(item)}
+            style={{
+              transform: 'scale(1.3)',
+              marginRight: '10px',
+              marginLeft: '20px'
+            }}
           />
           <span>{item}</span>
         </div>
