@@ -67,7 +67,7 @@ function Timer(props) {
           </button>
           <Link to={props.next}>
             <button>
-              {props.next === "/" ? "Done" : "Next →"}
+              {props.next === "/start" ? "Done" : "Next →"}
             </button>
           </Link>
         </div>

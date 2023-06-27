@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 function Arrange() {
   const { isVocalsChecked } = useContext(MyContext);
-  const nextPage = isVocalsChecked ? "/vocals" : "/";
+  const nextPage = isVocalsChecked ? "/vocals" : "/start";
 
   return (
     <div className="main-container">
