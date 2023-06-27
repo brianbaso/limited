@@ -1,8 +1,20 @@
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Timer from '../components/Timer.js';
 import TrackList from '../components/TrackList.js';
 import ProgressBar from '../components/ProgressBar.js';
+import { MyContext } from '../MyContext.js';
 
 function Produce() {
+  const { sounds } = useContext(MyContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sounds === '') {
+      navigate('/sounds')
+    }
+  }, [])
+
   return (
     <div className="main-container">
       <div className="a-container">

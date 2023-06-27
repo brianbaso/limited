@@ -10,6 +10,7 @@ const SignInForm = () => {
   const { updateSounds } = useContext(MyContext);
   const navigate = useNavigate();
 
+  // Cache the sounds when a user signs in to reduce api calls 
   const cacheSounds = async (userId) => {
     const db = getFirestore();
     const docRef = doc(db, "users", userId);

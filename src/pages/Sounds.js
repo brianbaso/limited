@@ -1,7 +1,6 @@
 import SoundsList from '../components/SoundsList';
 
 function Sounds() {
-    
     return (
         <>
           <div className="sounds-container">

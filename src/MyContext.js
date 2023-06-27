@@ -5,7 +5,7 @@ const MyContext = React.createContext();
 const MyContextProvider = ({ children }) => {
     const [genre, setGenre] = useState('rock');
     const [isVocalsChecked, setIsVocalsChecked] = useState(false);
-    const [sounds, setSounds] = useState(null)
+    const [sounds, setSounds] = useState('')
 
     const updateGenre = (genre) => {
         setGenre(genre);

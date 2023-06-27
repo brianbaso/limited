@@ -3,11 +3,11 @@ import HomeActions from '../components/HomeActions.js';
 import { MyContext } from '../MyContext.js';
 
 function Start() {
-    const { updateIsVocalsChecked, updateGenre } = useContext(MyContext);
+    const { updateIsVocalsChecked, updateGenre, sounds } = useContext(MyContext);
 
     useEffect(() => {
       updateIsVocalsChecked(false);
-      updateGenre("rock");
+      updateGenre('rock');
     }, [])
 
     return (

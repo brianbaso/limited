@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { MyContext } from '../MyContext';
 
 const SoundsList = () => {
   const items = [
@@ -10,6 +11,7 @@ const SoundsList = () => {
     "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
   ];
   const [checkedItems, setCheckedItems] = useState(items);
+  const { updateSounds } = useContext(MyContext);
 
   const handleItemToggle = (item) => {
     if (checkedItems.includes(item)) {
@@ -24,6 +26,9 @@ const SoundsList = () => {
     const db = getFirestore();
     const user = auth.currentUser;
     const soundsStr = checkedItems.join(',')
+
+    // Save the sounds to the context for new user
+    updateSounds(checkedItems);
 
     if (user) {
       await setDoc(doc(db, 'users', user.uid), {
