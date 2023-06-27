@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from '../MyContext';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { updateSounds } = useContext(MyContext);
   const navigate = useNavigate();
+
+  const cacheSounds = async (userId) => {
+    const db = getFirestore();
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const sounds = docSnap.data()["sounds"].split(',');
+      updateSounds(sounds)
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
 
   const handleSignIn = async () => {
       const auth = getAuth();
@@ -14,6 +31,7 @@ const SignInForm = () => {
           // Signed in 
           const user = userCredential.user;
           console.log('User signed in:', user);
+          cacheSounds(user.uid);
           navigate("/start");
           // ...
         })

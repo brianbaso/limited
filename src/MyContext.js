@@ -5,20 +5,27 @@ const MyContext = React.createContext();
 const MyContextProvider = ({ children }) => {
     const [genre, setGenre] = useState('rock');
     const [isVocalsChecked, setIsVocalsChecked] = useState(false);
+    const [sounds, setSounds] = useState(null)
 
-    const updateGenre = (newGenre) => {
-        setGenre(newGenre);
-    };
+    const updateGenre = (genre) => {
+        setGenre(genre);
+    }
 
     const updateIsVocalsChecked = (newIsVocalsChecked) => {
         setIsVocalsChecked(newIsVocalsChecked);
     }
 
+    const updateSounds = (sounds) => {
+        setSounds(sounds)
+    }
+
     const contextValues = {
         genre,
         isVocalsChecked,
+        sounds,
         updateGenre,
-        updateIsVocalsChecked
+        updateIsVocalsChecked,
+        updateSounds
     }
 
     return (
