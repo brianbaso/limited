@@ -21,7 +21,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
+    <div className="auth-form">
       <input
         type="email"
         placeholder="Email"

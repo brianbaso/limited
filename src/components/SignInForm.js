@@ -44,7 +44,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div>
+    <div className="auth-form">
       <input
         type="email"
         placeholder="Email"

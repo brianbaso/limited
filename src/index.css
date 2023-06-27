@@ -69,6 +69,11 @@ select:focus {
   box-shadow: 0 0 0 2px rgba(92, 106, 196, 0.5);
 }
 
+input {
+  padding: 13px;
+  border: 1px solid #818181;
+  border-radius: 5px;
+}
 
 @media (prefers-color-scheme: light) {
   /* :root {
@@ -286,3 +291,28 @@ select:focus {
 /* .continue-button {
   border: 1px solid rgba(74, 45, 224);
 } */
+
+
+/* Auth */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-subheader {
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.auth-subtext {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.auth-signup-link {
+  margin-top: 20px;
+}
