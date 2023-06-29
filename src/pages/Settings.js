@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Settings() {
     const navigate = useNavigate();
+    const auth = getAuth();
 
     const handleSignOut = async () => {
-      const auth = getAuth();
       signOut(auth).then(() => {
         console.log('user signed out')
         navigate('/')
@@ -17,17 +17,29 @@ function Settings() {
       });
     }
     
+    const sendResetEmail = (email) => {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          // Email sent successfully
+          console.log("Password reset email sent");
+        })
+        .catch((error) => {
+          // Error occurred while sending email
+          console.error("Error sending password reset email:", error);
+        });
+    };
+
     return (
         <>
           <div className="settings-container">
             <h1>settings 🥀</h1>
-            <Link className="settings-link">
+            <Link className="settings-link" to="/sounds">
                 Edit Your Sounds &nbsp;🎹
             </Link>
-            <Link className="settings-link">
+            {/* <Link className="settings-link">
                 Leave Feedback &nbsp;🗣️
-            </Link>
-            <Link className="settings-link">
+            </Link> */}
+            <Link className="settings-link" onClick={() => sendResetEmail(auth.currentUser.email)}>
                 Reset Password &nbsp;🔑
             </Link>
             <Link className="settings-link sign-out" onClick={handleSignOut}>
