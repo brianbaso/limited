@@ -1,17 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { MyContext } from '../MyContext';
 
 const SoundsList = () => {
-  const items = [
+  const defaultSounds = [
     "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
     "Brass", "Sub Bass", "Plucked Bass", "Lead Synth", "Pad Synth", "Choir",
     "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
   ];
-  const [checkedItems, setCheckedItems] = useState(items);
-  const { updateSounds } = useContext(MyContext);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const { sounds, updateSounds } = useContext(MyContext);
+
+  useEffect(() => {
+    // Check if the user has already set their sounds
+    if (sounds !== "") {
+      setCheckedItems(sounds)
+    } else {
+      setCheckedItems(defaultSounds)
+    }
+  }, [])
 
   const handleItemToggle = (item) => {
     if (checkedItems.includes(item)) {
@@ -50,7 +59,7 @@ const SoundsList = () => {
       paddingBottom: '25px',
       width: '850px'
       }}>
-        {items.map((item) => (
+        {checkedItems.map((item) => (
           <div
             className="sound-item"
             key={item}

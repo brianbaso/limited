@@ -1,37 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MyContext } from '../MyContext';
 
-
-const TRACK_OPTIONS = {
-  "rock": [
-    'Lead Synth',
-    'Rhythm Synth',
-    'Lead Guitar',
-    'Rhythm Guitar',
-    'Bass',
-    'Drums',
-  ],
-  "hiphop": [
-    'Lead Synth',
-    'Rhythm Synth',
-    'Guitar',
-    'Sample',
-    'Bass',
-    'Drums',
-  ],
-  "electronic": [
-    'Lead Synth',
-    'Rhythm Synth',
-    'Guitar',
-    'Shaker',
-    'Bass',
-    'Drums',
-  ],
-}
+/* Rules:
+   - Only one drums
+   - Only one bass
+   - Only one piano
+*/
+const DRUM_OPTIONS = [
+    "Drums With Clap",
+    "Drums With Snare",
+    "Drums No Hihats",
+    "Drums With Ride",
+    "Stock DAW Drums"
+];
 
 function TrackList() {
   const [tracks, setTracks] = useState([]);
-  const { genre } = useContext(MyContext);
+  const { sounds } = useContext(MyContext);
+  const allSounds = sounds.concat(DRUM_OPTIONS);
 
   useEffect(() => {
     generateTracks();
@@ -41,12 +27,12 @@ function TrackList() {
     const selectedTracks = [];
 
     while (selectedTracks.length < 3) {
-      const randomTrack = TRACK_OPTIONS[genre][Math.floor(Math.random() * TRACK_OPTIONS[genre].length)];
+      const randomTrack = allSounds[Math.floor(Math.random() * allSounds.length)];
 
       if (
         !selectedTracks.includes(randomTrack) &&
-        !selectedTracks.some((track) => track.includes('Lead') && randomTrack.includes('Lead')) &&
-        !selectedTracks.some((track) => track.includes('Rhythm') && randomTrack.includes('Rhythm'))
+        !selectedTracks.some((track) => track.includes('Drums') && randomTrack.includes('Drums')) &&
+        !selectedTracks.some((track) => track.includes('Bass') && randomTrack.includes('Bass'))
       ) {
         selectedTracks.push(randomTrack);
       }
