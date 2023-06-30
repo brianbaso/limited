@@ -5,29 +5,37 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { MyContext } from '../MyContext';
 
 const SoundsList = () => {
-  const defaultSounds = [
+  let defaultSounds = [
     "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
     "Brass", "Sub Bass", "Plucked Bass", "Lead Synth", "Pad Synth", "Choir",
     "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
   ];
+  const [sounds, setSounds] = useState([])
   const [checkedItems, setCheckedItems] = useState([]);
   const [customSound, setCustomSound] = useState("");
   const { cacheSounds, updateCacheSounds } = useContext(MyContext);
 
-  // refactor defaultSounds to just sounds
-
   useEffect(() => {
     // Check if the user has already set their sounds
-    if (sounds !== "") {
+    if (cacheSounds !== "") {
+      // Show all the original sounds, even the ones unchecked + the users custom sounds
+      // 'Set' automatically removes duplicates 
+      const allSounds = defaultSounds.concat(cacheSounds.filter(item => !defaultSounds.includes(item)));
+
+      setSounds(allSounds)
       setCheckedItems(cacheSounds)
     } else {
+      setSounds(defaultSounds)
       setCheckedItems(defaultSounds)
     }
   }, [])
 
   const addCustomSound = () => {
-    const updatedSounds = checkedItems.concat(customSound)
-    setCheckedItems(updatedSounds)
+    const updatedCheckedItems = checkedItems.concat(customSound)
+    const updatedSounds = sounds.concat(customSound)
+
+    setCheckedItems(updatedCheckedItems)
+    setSounds(updatedSounds)
   }
 
   const handleItemToggle = (item) => {
@@ -67,7 +75,7 @@ const SoundsList = () => {
       paddingBottom: '25px',
       width: '850px'
       }}>
-        {defaultSounds.map((item) => (
+        {sounds.map((item) => (
           <div
             className="sound-item"
             key={item}
@@ -98,17 +106,21 @@ const SoundsList = () => {
           </div>
         ))}
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter sound here..."
-          value={customSound}
-          onChange={(e) => setCustomSound(e.target.value)}
-        />
-        <button onClick={addCustomSound}>Add Sound</button>
-        <Link to="/start">
-          <button className="primary-button continue-button" onClick={saveSounds}>continue →</button>
-        </Link>
+      <div className="sound-list-actions">
+        <div className="custom-sounds-container">
+          <input
+            type="text"
+            placeholder="Enter sound here..."
+            value={customSound}
+            onChange={(e) => setCustomSound(e.target.value)}
+          />
+          <button onClick={addCustomSound}>Add Sound</button>
+        </div>
+        <div>
+          <Link to="/start">
+            <button className="primary-button continue-button" onClick={saveSounds}>Continue →</button>
+          </Link>
+        </div>
       </div>
     </>
   );

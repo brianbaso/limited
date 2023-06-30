@@ -288,9 +288,22 @@ input {
   font-size: 16px;
 }
 
-/* .continue-button {
-  border: 1px solid rgba(74, 45, 224);
-} */
+.sound-list-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.custom-sounds-container {
+  justify-content: center;
+  display: flex;
+  gap: 15px;
+}
+
+.continue-button {
+  border: 1px solid rgba(87, 65, 200, 0.5);
+  background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
+}
 
 
 /* Auth */
