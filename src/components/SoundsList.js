@@ -59,7 +59,7 @@ const SoundsList = () => {
       paddingBottom: '25px',
       width: '850px'
       }}>
-        {checkedItems.map((item) => (
+        {defaultSounds.map((item) => (
           <div
             className="sound-item"
             key={item}
