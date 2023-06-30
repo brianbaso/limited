@@ -6,11 +6,11 @@ import ProgressBar from '../components/ProgressBar.js';
 import { MyContext } from '../MyContext.js';
 
 function Produce() {
-  const { sounds } = useContext(MyContext);
+  const { cacheSounds } = useContext(MyContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (sounds === '') {
+    if (cacheSounds === '') {
       navigate('/sounds')
     }
   }, [])

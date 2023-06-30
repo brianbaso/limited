@@ -5,7 +5,7 @@ const MyContext = React.createContext();
 const MyContextProvider = ({ children }) => {
     const [genre, setGenre] = useState('rock');
     const [isVocalsChecked, setIsVocalsChecked] = useState(false);
-    const [sounds, setSounds] = useState('')
+    const [cacheSounds, setCacheSounds] = useState('')
 
     const updateGenre = (genre) => {
         setGenre(genre);
@@ -15,17 +15,17 @@ const MyContextProvider = ({ children }) => {
         setIsVocalsChecked(newIsVocalsChecked);
     }
 
-    const updateSounds = (sounds) => {
-        setSounds(sounds)
+    const updateCacheSounds = (cacheSounds) => {
+        setCacheSounds(cacheSounds)
     }
 
     const contextValues = {
         genre,
         isVocalsChecked,
-        sounds,
+        cacheSounds,
         updateGenre,
         updateIsVocalsChecked,
-        updateSounds
+        updateCacheSounds
     }
 
     return (

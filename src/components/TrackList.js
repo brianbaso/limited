@@ -16,8 +16,8 @@ const DRUM_OPTIONS = [
 
 function TrackList() {
   const [tracks, setTracks] = useState([]);
-  const { sounds } = useContext(MyContext);
-  const allSounds = sounds.concat(DRUM_OPTIONS);
+  const { cacheSounds } = useContext(MyContext);
+  const allSounds = cacheSounds.concat(DRUM_OPTIONS);
 
   useEffect(() => {
     generateTracks();

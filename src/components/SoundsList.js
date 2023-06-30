@@ -11,16 +11,24 @@ const SoundsList = () => {
     "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
   ];
   const [checkedItems, setCheckedItems] = useState([]);
-  const { sounds, updateSounds } = useContext(MyContext);
+  const [customSound, setCustomSound] = useState("");
+  const { cacheSounds, updateCacheSounds } = useContext(MyContext);
+
+  // refactor defaultSounds to just sounds
 
   useEffect(() => {
     // Check if the user has already set their sounds
     if (sounds !== "") {
-      setCheckedItems(sounds)
+      setCheckedItems(cacheSounds)
     } else {
       setCheckedItems(defaultSounds)
     }
   }, [])
+
+  const addCustomSound = () => {
+    const updatedSounds = checkedItems.concat(customSound)
+    setCheckedItems(updatedSounds)
+  }
 
   const handleItemToggle = (item) => {
     if (checkedItems.includes(item)) {
@@ -36,8 +44,8 @@ const SoundsList = () => {
     const user = auth.currentUser;
     const soundsStr = checkedItems.join(',')
 
-    // Save the sounds to the context for new user
-    updateSounds(checkedItems);
+    // Save the sounds to the cache for new user
+    updateCacheSounds(checkedItems);
 
     if (user) {
       await setDoc(doc(db, 'users', user.uid), {
@@ -91,6 +99,13 @@ const SoundsList = () => {
         ))}
       </div>
       <div>
+        <input
+          type="text"
+          placeholder="Enter sound here..."
+          value={customSound}
+          onChange={(e) => setCustomSound(e.target.value)}
+        />
+        <button onClick={addCustomSound}>Add Sound</button>
         <Link to="/start">
           <button className="primary-button continue-button" onClick={saveSounds}>continue →</button>
         </Link>

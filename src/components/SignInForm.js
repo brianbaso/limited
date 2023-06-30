@@ -7,18 +7,18 @@ import { MyContext } from '../MyContext';
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { updateSounds } = useContext(MyContext);
+  const { updateCacheSounds } = useContext(MyContext);
   const navigate = useNavigate();
 
   // Cache the sounds when a user signs in to reduce api calls 
-  const cacheSounds = async (userId) => {
+  const saveSoundsToCache = async (userId) => {
     const db = getFirestore();
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const sounds = docSnap.data()["sounds"].split(',');
-      updateSounds(sounds)
+      updateCacheSounds(sounds)
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
@@ -32,7 +32,7 @@ const SignInForm = () => {
           // Signed in 
           const user = userCredential.user;
           console.log('User signed in:', user);
-          cacheSounds(user.uid);
+          saveSoundsToCache(user.uid);
           navigate("/start");
           // ...
         })
