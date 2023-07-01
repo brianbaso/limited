@@ -1,14 +1,20 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from '../MyContext';
 
 function Settings() {
     const navigate = useNavigate();
     const auth = getAuth();
+    const { updateCacheSounds } = useContext(MyContext);
 
     const handleSignOut = async () => {
       signOut(auth).then(() => {
         console.log('user signed out')
+        // Clear cache
+        updateCacheSounds("")
+
         navigate('/')
         // Sign-out successful.
       }).catch((error) => {
