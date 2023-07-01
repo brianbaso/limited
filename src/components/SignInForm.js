@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,13 @@ const SignInForm = () => {
   const [password, setPassword] = useState('');
   const { updateCacheSounds } = useContext(MyContext);
   const navigate = useNavigate();
+  const buttonRef = useRef(null)
+  const inputRef = useRef(null);
+
+  // Auto-focus into the email field
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // Cache the sounds when a user signs in to reduce api calls 
   const saveSoundsToCache = async (userId) => {
@@ -43,21 +50,30 @@ const SignInForm = () => {
         });
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      buttonRef.current.click();
+    }
+  };
+
   return (
     <div className="auth-form">
       <input
         type="email"
         placeholder="Email"
+        ref={inputRef}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
         type="password"
         placeholder="Password"
+        onKeyDown={handleKeyDown}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleSignIn}>Sign In →</button>
+      <button ref={buttonRef} onClick={handleSignIn}>Sign In →</button>
     </div>
   );
 
