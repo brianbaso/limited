@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAuth, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from '../MyContext';
+import { toast } from 'react-toastify';
 
 function Settings() {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Settings() {
         updateCacheSounds("")
 
         navigate('/')
+        toast.success('You have successfully signed out.')
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.

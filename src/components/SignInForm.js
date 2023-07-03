@@ -3,6 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from '../MyContext';
+import { toast } from 'react-toastify';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -41,12 +42,18 @@ const SignInForm = () => {
           console.log('User signed in:', user);
           saveSoundsToCache(user.uid);
           navigate("/start");
+          toast.success('Sign in success. Welcome back!')
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log('error', errorCode, errorMessage);
+          if (errorCode === 'auth/wrong-password') {
+            toast.error('Incorrect password. Please try again!');
+          } else if (errorCode === 'auth/user-not-found') {
+            toast.error('User not found. Perhaps you previously used a different sign in method?');
+          } else {
+            toast.error('Authentication failed. Please check your credentials.');
+          }
         });
   };
 
