@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { auth, createUserWithEmailAndPassword } from '../firebase/firebase';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -16,13 +17,19 @@ const SignUpForm = () => {
 
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log('successful signup', user)
+      await createUserWithEmailAndPassword(auth, email, password);
       navigate("/sounds")
     } catch (error) {
-      // Handle sign-up error
-      console.log('error signing up', error)
+      const errorCode = error.code;
+          if (errorCode === 'auth/email-already-in-use') {
+            toast.error('That email is already in use, please sign in or use a different email.');
+          } else if (errorCode === 'auth/invalid-email') {
+            toast.error('Invalid email. Please use a correct email format.');
+          } else if (errorCode === 'auth/weak-password') {
+            toast.error('Please use a password that is at least 6 characters.');
+          } else {
+            toast.error('Authentication failed. Please check your credentials.');
+          }
     }
   };
 
