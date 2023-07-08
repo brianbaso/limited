@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from '../MyContext';
@@ -64,11 +64,18 @@ const SignInForm = () => {
   
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      saveSoundsToCache(user.uid);
-      navigate("/start");
-      toast.success('Sign in success. Welcome back!')
+      const isNewUser = getAdditionalUserInfo(result).isNewUser
+
+      if (isNewUser) {
+        navigate("/sounds")
+      } else {
+        const user = result.user;
+        saveSoundsToCache(user.uid);
+        navigate("/start");
+        toast.success('Sign in success. Welcome back!')
+      }
     } catch (error) {
+      console.log(error.message)
       toast.error('Google sign in failed. Please try again.');
     }
   };
