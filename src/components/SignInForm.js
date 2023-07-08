@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from '../MyContext';
 import { toast } from 'react-toastify';
+import google from '../assets/images/google.png'
+
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -39,7 +41,6 @@ const SignInForm = () => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log('User signed in:', user);
           saveSoundsToCache(user.uid);
           navigate("/start");
           toast.success('Sign in success. Welcome back!')
@@ -57,6 +58,21 @@ const SignInForm = () => {
         });
   };
 
+  const handleGoogleLogin = async () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+  
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      saveSoundsToCache(user.uid);
+      navigate("/start");
+      toast.success('Sign in success. Welcome back!')
+    } catch (error) {
+      toast.error('Google sign in failed. Please try again.');
+    }
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -66,6 +82,8 @@ const SignInForm = () => {
 
   return (
     <div className="auth-form">
+      <button onClick={handleGoogleLogin}><div className="google-button"><img src={google} />Sign in with Google</div></button>
+      <hr className="solid"/>
       <input
         type="email"
         placeholder="Email"
