@@ -65,28 +65,12 @@ const SoundsList = () => {
 
   return (
     <>
-      <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      paddingTop: '10px',
-      paddingBottom: '25px',
-      width: '850px'
-      }}>
+      <div className="sounds-item-container">
         {sounds.map((item) => (
           <div
             className="sound-item"
             key={item}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              margin: '5px',
-              width: '160px',
-              height: '50px',
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontWeight: '600',
               backgroundColor: checkedItems.includes(item) ? '#535bf2' : 'grey',
             }}
             onClick={() => handleItemToggle(item)}
@@ -94,11 +78,7 @@ const SoundsList = () => {
             <input
               type="checkbox"
               checked={checkedItems.includes(item)}
-              style={{
-                transform: 'scale(1.3)',
-                marginRight: '10px',
-                marginLeft: '20px'
-              }}
+              className="sound-checkbox"
               readOnly
             />
             <span>{item}</span>
