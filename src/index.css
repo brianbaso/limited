@@ -305,6 +305,12 @@ input {
   background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
 }
 
+.onboard-progress-bar {
+  transform: scale(1.25);
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+}
+
 
 /* Auth */
 

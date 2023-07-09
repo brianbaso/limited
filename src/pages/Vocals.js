@@ -1,11 +1,11 @@
 import Timer from '../components/Timer.js';
-import ProgressBar from '../components/ProgressBar.js';
+import CreateProgressBar from '../components/CreateProgressBar.js';
 
 function Vocals() {
   return (
     <div className="main-container">
       <div className="a-container">
-          <ProgressBar step={"vocals"} />
+          <CreateProgressBar step={"vocals"} />
       </div>
       <div className="b-container">
         <div>

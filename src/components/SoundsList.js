@@ -7,8 +7,7 @@ import { MyContext } from '../MyContext';
 const SoundsList = () => {
   let defaultSounds = [
     "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
-    "Brass", "Sub Bass", "Plucked Bass", "Lead Synth", "Pad Synth", "Choir",
-    "Bass Guitar", "808 Bass", "Violin", "Cello", "Flute", "Drum Loop", "Bongos"
+    "Brass", "Lead Synth", "Pad Synth", "Choir", "Violin", "Cello", "Flute", "Saxaphone"
   ];
   const [sounds, setSounds] = useState([])
   const [checkedItems, setCheckedItems] = useState([]);

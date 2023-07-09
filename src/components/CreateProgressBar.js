@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { MyContext } from "../MyContext";
 
-function ProgressBar(props) {
+function CreateProgressBar(props) {
   const { isVocalsChecked } = useContext(MyContext);
   const step = props.step;
 
@@ -18,4 +18,4 @@ function ProgressBar(props) {
   );
 };
 
-export default ProgressBar;
+export default CreateProgressBar;

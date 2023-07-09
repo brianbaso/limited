@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Timer from '../components/Timer.js';
 import TrackList from '../components/TrackList.js';
-import ProgressBar from '../components/ProgressBar.js';
+import CreateProgressBar from '../components/CreateProgressBar.js';
 import { MyContext } from '../MyContext.js';
 
 function Produce() {
@@ -18,7 +18,7 @@ function Produce() {
   return (
     <div className="main-container">
       <div className="a-container">
-        <ProgressBar step={"production"} />
+        <CreateProgressBar step={"production"} />
       </div>
       <div className="b-container">
         <TrackList />

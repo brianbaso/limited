@@ -1,6 +1,6 @@
 import { MyContext } from '../MyContext.js';
 import Timer from '../components/Timer.js';
-import ProgressBar from '../components/ProgressBar.js'
+import CreateProgressBar from '../components/CreateProgressBar.js'
 import { useContext } from 'react';
 
 function Arrange() {
@@ -10,7 +10,7 @@ function Arrange() {
   return (
     <div className="main-container">
       <div className="a-container">
-        <ProgressBar step={"arrangement"} />
+        <CreateProgressBar step={"arrangement"} />
       </div>
       <div className="b-container">
         <div>
