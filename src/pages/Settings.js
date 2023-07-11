@@ -41,7 +41,7 @@ function Settings() {
         <>
           <div className="settings-container">
             <h1>settings 🥀</h1>
-            <Link className="settings-link" to="/sounds">
+            <Link className="settings-link" to="/sounds/lead-and-rhythm">
                 Edit Your Sounds &nbsp;🎹
             </Link>
             {/* <Link className="settings-link">

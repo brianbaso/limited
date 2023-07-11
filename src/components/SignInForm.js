@@ -27,7 +27,7 @@ const SignInForm = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const sounds = docSnap.data()["sounds"].split(',');
+      const sounds = JSON.parse(docSnap.data()["sounds"]);
       updateCacheSounds(sounds)
     } else {
       // docSnap.data() will be undefined in this case
@@ -67,7 +67,7 @@ const SignInForm = () => {
       const isNewUser = getAdditionalUserInfo(result).isNewUser
 
       if (isNewUser) {
-        navigate("/sounds")
+        navigate("/sounds/lead-and-rhythm")
       } else {
         const user = result.user;
         saveSoundsToCache(user.uid);

@@ -24,7 +24,7 @@ function App() {
           <Route path="/arrange" element={<PrivateRoute component={Arrange} />} />
           <Route path="/vocals" element={<PrivateRoute component={Vocals} />} />
           <Route path="/settings" element={<PrivateRoute component={Settings} />} />
-          <Route path="/sounds" element={<PrivateRoute component={Sounds} />} />
+          <Route path="/sounds/:soundId" element={<PrivateRoute component={Sounds} />} />
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

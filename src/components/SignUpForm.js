@@ -18,7 +18,7 @@ const SignUpForm = () => {
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/sounds")
+      navigate("/sounds/lead-and-rhythm")
     } catch (error) {
       const errorCode = error.code;
           if (errorCode === 'auth/email-already-in-use') {

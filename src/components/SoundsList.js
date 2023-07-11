@@ -4,11 +4,27 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { MyContext } from '../MyContext';
 
-const SoundsList = () => {
-  let defaultSounds = [
-    "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
-    "Brass", "Lead Synth", "Pad Synth", "Choir", "Violin", "Cello", "Flute", "Saxaphone"
-  ];
+const SoundsList = (props) => {
+  const step = props.step
+
+  // let defaultSounds = [
+  //   "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
+  //   "Brass", "Lead Synth", "Pad Synth", "Choir", "Violin", "Cello", "Flute", "Saxaphone"
+  // ];
+
+  let defaultSounds = {
+    "lead-and-rhythm": [
+      "Piano", "Electric Piano", "Bells", "Organ", "Synth Keys", "Guitar", "Sample",
+      "Brass", "Lead Synth", "Pad Synth", "Choir", "Violin", "Cello", "Flute", "Saxaphone"
+    ],
+    "bass": [
+      "Sub Bass", "Plucked Bass", "Bass Guitar", "Synth Bass", "808 Bass", "Double Bass"
+    ],
+    "drums": [
+      "One-Shots", "Preset Pad Drums", "Live Drums", "Sample Loop"
+    ]
+  }
+  
   const [sounds, setSounds] = useState([])
   const [checkedItems, setCheckedItems] = useState([]);
   const [customSound, setCustomSound] = useState("");
@@ -16,18 +32,28 @@ const SoundsList = () => {
 
   useEffect(() => {
     // Check if the user has already set their sounds
-    if (cacheSounds !== "") {
+    // debugger;
+    // Undefined may be a potential problem in the future?
+    // Lets go for empty array
+    if (cacheSounds[step] && cacheSounds[step].length !== 0) {
       // Show all the original sounds, even the ones unchecked + the users custom sounds
       // 'Set' automatically removes duplicates 
-      const allSounds = defaultSounds.concat(cacheSounds.filter(item => !defaultSounds.includes(item)));
+      const allSounds = defaultSounds[step].concat(cacheSounds[step].filter(item => !defaultSounds[step].includes(item)));
 
       setSounds(allSounds)
-      setCheckedItems(cacheSounds)
+      setCheckedItems(cacheSounds[step])
     } else {
-      setSounds(defaultSounds)
-      setCheckedItems(defaultSounds)
+      setSounds(defaultSounds[step])
+      setCheckedItems(defaultSounds[step])
     }
-  }, [])
+  }, [step])
+
+  // Update the cache evertime checked items changes
+  useEffect(() => {
+    if (checkedItems.length > 0 && step) {
+      updateCacheSounds(checkedItems, step)
+    }
+  }, [checkedItems])
 
   const addCustomSound = () => {
     const updatedCheckedItems = checkedItems.concat(customSound)
@@ -45,23 +71,42 @@ const SoundsList = () => {
     }
   };
 
+  // Save sounds happens after drums are selected
   const saveSounds = async () => {
     const auth = getAuth();
     const db = getFirestore();
     const user = auth.currentUser;
-    const soundsStr = checkedItems.join(',')
+    // const soundsStr = checkedItems.join(',')
 
     // Save the sounds to the cache for new user
-    updateCacheSounds(checkedItems);
+    // updateCacheSounds(checkedItems, step);
+
+    const jsonSoundsStr = JSON.stringify(cacheSounds)
+    console.log('cache sounds:', cacheSounds)
+    console.log('stringified:', jsonSoundsStr)
 
     if (user) {
       await setDoc(doc(db, 'users', user.uid), {
-        sounds: soundsStr
+        sounds: jsonSoundsStr
       });
     } else {
       console.log('No user found.')
     }
   };
+
+    // Create function for pressing continue and just pushing onto cache
+    const handleContinue = () => {
+      // debugger;
+      if (step === "drums") {
+        // updateCacheSounds(checkedItems, step);
+        saveSounds()
+      }
+      console.log(cacheSounds)
+      // } else {
+      //   updateCacheSounds(checkedItems, step)
+      //   console.log(cacheSounds)
+      // }
+    }
 
   return (
     <>
@@ -96,8 +141,13 @@ const SoundsList = () => {
           <button onClick={addCustomSound}>Add Sound</button>
         </div>
         <div>
-          <Link to="/start">
-            <button className="primary-button continue-button" onClick={saveSounds}>Continue →</button>
+          <Link to={
+            step === "lead-and-rhythm" ? "/sounds/bass" :
+            step === "bass" ? "/sounds/drums" :
+            step === "drums" ? "/start" :
+            "/error"
+            }>
+            <button className="primary-button continue-button" onClick={handleContinue}>Continue →</button>
           </Link>
         </div>
       </div>
