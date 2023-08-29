@@ -22,7 +22,7 @@ function Produce() {
       </div>
       <div className="b-container">
         <TrackList />
-        <Timer minutes={15} next={"/arrange"} />
+        <Timer minutes={30} next={"/arrange"} />
       </div>
     </div>
   );

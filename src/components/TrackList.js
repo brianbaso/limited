@@ -41,6 +41,7 @@ function TrackList() {
 
   useEffect(() => {
     generateRandomTracks();
+    console.log(cacheSounds)
   }, []);
 
   const generateRandomTracks = () => {

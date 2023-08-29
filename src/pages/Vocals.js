@@ -12,7 +12,7 @@ function Vocals() {
             <h2>Write & Record</h2>
             <p className="vocals-text">Don't let high expecatations give you writer's block. <br/> Just have fun.</p>
         </div>
-        <Timer minutes={10} next={"/start"} />
+        <Timer minutes={20} next={"/start"} />
       </div>
     </div>
   );
