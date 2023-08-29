@@ -162,32 +162,34 @@ input {
 
 .timer-container {
   display: flex;
+  padding-top: 5px;
 }
 
 .timer-controls {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-direction: row;
   gap: 10px;
 }
 
 .timer-digits {
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: 700;
   background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  width: 138px;
-  height: 72px;
+  /* width: 138px;
+  height: 72px; */
 }
 
 /* Global */
 .main-container {
-  transform: scale(1.5);
+  transform: scale(1.3);
 }
 
 .b-container {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
   gap: 100px;
 }
 

@@ -20,12 +20,24 @@ import { MyContext } from '../MyContext';
     Create an ordered list with the selected tracks. Also create a button "Generate new tracks" that will randomize new tracks.
 */
 const DRUM_OPTIONS = [
-    "Any Drums With Clap",
-    "Any Drums With Snare",
-    "Any Drums No Hihats",
-    "Any Drums With Ride",
-    "Any Stock DAW Drums"
+  "Any Drums With Clap",
+  "Any Drums With Snare",
+  "Any Drums No Hihats",
+  "Any Drums With Ride",
+  "Any Stock DAW Drums"
 ];
+
+const EFFECTS = [
+  "Filtered", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
+];
+
+const NOTES = [
+  "Any Notes", "Any Notes", "3 Notes", "2 Notes"
+]
+
+const CHORDS = [
+  "Any Chords", "Any Chords", "3 Chords", "2 Chords"
+]
 
 const trackList = {
   "lead-and-rhythm": ["Piano", "Rhodes", "Bells", "Guitar", "Saxophone"],
@@ -41,7 +53,7 @@ function TrackList() {
 
   useEffect(() => {
     generateRandomTracks();
-    console.log(cacheSounds)
+    console.log('cache', cacheSounds)
   }, []);
 
   const generateRandomTracks = () => {
@@ -61,17 +73,25 @@ function TrackList() {
     // Randomly select one drums track
     const selectedDrums = drumSounds[Math.floor(Math.random() * drumSounds.length)];
 
-    setSelectedTracks([...selectedLeadAndRhythm, selectedBass, selectedDrums]);
+    const tracks = {
+      "lead-and-rhythm": selectedLeadAndRhythm,
+      "bass": selectedBass,
+      "drums": selectedDrums
+    }
+
+    setSelectedTracks(tracks);
+    console.log('TRACKS',tracks)
+    // console.log('here', selectedLeadAndRhythm, selectedBass, selectedDrums)
   };
 
   return (
     <div>
-      <h2>Tracks Allowed</h2>
-      <ol>
+      {/* <h2>Tracks Allowed</h2> */}
+      {/* <ol>
         {selectedTracks.map((track, index) => (
           <li key={index}>{track}</li>
         ))}
-      </ol>
+      </ol> */}
       <button onClick={generateRandomTracks}>Generate New Tracks</button>
     </div>
   );
