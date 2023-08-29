@@ -28,15 +28,15 @@ const DRUM_OPTIONS = [
 ];
 
 const EFFECTS = [
-  "Filtered", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
+  "Filter", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
 ];
 
 const NOTES = [
-  "Any Notes", "Any Notes", "3 Notes", "2 Notes"
+  "any notes", "any notes", "three notes", "two notes"
 ]
 
 const CHORDS = [
-  "Any Chords", "Any Chords", "3 Chords", "2 Chords"
+  "any chords", "any chords", "three chords", "two chords"
 ]
 
 const trackList = {
@@ -62,9 +62,23 @@ function TrackList() {
 
     // Randomly select two lead-and-rhythm tracks
     while (selectedLeadAndRhythm.length < 2 && leadAndRhythmTracks.length > 0) {
-      const randomIndex = Math.floor(Math.random() * leadAndRhythmTracks.length);
-      const track = leadAndRhythmTracks.splice(randomIndex, 1)[0];
-      selectedLeadAndRhythm.push(track);
+      const randomIndexTrack = Math.floor(Math.random() * leadAndRhythmTracks.length);
+      const track = leadAndRhythmTracks.splice(randomIndexTrack, 1)[0];
+
+      const randomIndexFx = Math.floor(Math.random() * EFFECTS.length);
+      const fx = EFFECTS.splice(randomIndexFx, 1)[0];
+
+      // Select chords option for first L&R, and notes for second
+      if (selectedLeadAndRhythm.length > 0) {
+        const randomIndexNotes = Math.floor(Math.random() * NOTES.length);
+        const notes = NOTES.splice(randomIndexNotes, 1)[0];
+        selectedLeadAndRhythm.push(track + " with " + fx + " using " + notes);
+      } else {
+        const randomIndexChords = Math.floor(Math.random() * CHORDS.length);
+        const chords = CHORDS.splice(randomIndexChords, 1)[0];
+        selectedLeadAndRhythm.push(track + " with " + fx + " using " + chords);
+      }
+
     }
 
     // Randomly select one bass track
@@ -80,7 +94,7 @@ function TrackList() {
     }
 
     setSelectedTracks(tracks);
-    console.log('TRACKS',tracks)
+    console.log('TRACKS',selectedTracks)
     // console.log('here', selectedLeadAndRhythm, selectedBass, selectedDrums)
   };
 
@@ -92,6 +106,13 @@ function TrackList() {
           <li key={index}>{track}</li>
         ))}
       </ol> */}
+      {selectedTracks &&
+        <ul>
+          <li>HARMONY: {selectedTracks["lead-and-rhythm"][0]}</li>
+          <li>MELODY: {selectedTracks["lead-and-rhythm"][1]}</li>
+          <li>BASS: {selectedTracks["bass"]}</li>
+          <li>DRUMS {selectedTracks["drums"]}</li>
+        </ul>} 
       <button onClick={generateRandomTracks}>Generate New Tracks</button>
     </div>
   );
