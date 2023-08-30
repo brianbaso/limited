@@ -57,6 +57,20 @@ function TrackList() {
   }, []);
 
   const generateRandomTracks = () => {
+
+    // Scoped in order to reset everytime function is called
+    const EFFECTS = [
+      "Filter", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
+    ];
+    
+    const NOTES = [
+      "any notes", "any notes", "three notes", "two notes"
+    ]
+    
+    const CHORDS = [
+      "any chords", "any chords", "three chords", "two chords"
+    ]
+
     const leadAndRhythmTracks = [...cacheSounds["lead-and-rhythm"]];
     const selectedLeadAndRhythm = [];
 
@@ -106,12 +120,13 @@ function TrackList() {
           <li key={index}>{track}</li>
         ))}
       </ol> */}
-      {selectedTracks &&
-        <ul>
-          <li>HARMONY: {selectedTracks["lead-and-rhythm"][0]}</li>
-          <li>MELODY: {selectedTracks["lead-and-rhythm"][1]}</li>
-          <li>BASS: {selectedTracks["bass"]}</li>
-          <li>DRUMS {selectedTracks["drums"]}</li>
+      {/* Wait until all keys are loaded */}
+      {Object.keys(selectedTracks).length === 3 &&
+        <ul className="track-list">
+          <li className="track-list-item harmony"><p className="track-list-label">Harmony</p>{selectedTracks["lead-and-rhythm"][0]}</li>
+          <li className="track-list-item melody"><p className="track-list-label">Melody</p>{selectedTracks["lead-and-rhythm"][1]}</li>
+          <li className="track-list-item bass"><p className="track-list-label">Bass</p>{selectedTracks["bass"]}</li>
+          <li className="track-list-item drums"><p className="track-list-label">Drums</p>{selectedTracks["drums"]}</li>
         </ul>} 
       <button onClick={generateRandomTracks}>Generate New Tracks</button>
     </div>

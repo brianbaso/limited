@@ -378,3 +378,51 @@ hr.solid {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+
+/* Track List */
+.track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style-type: none;
+  text-align: left;
+}
+
+.track-list-item {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  transition: border-color 0.25s;
+  box-shadow: 1px 1px 1px 1px rgba(123, 135, 211, 0.3);
+
+}
+
+.harmony  {
+  background-color: #535bf2;
+}
+
+.melody {
+  background-color: rgba(2, 164, 223, .92);
+}
+
+.drums {
+  background-color: rgb(230, 78, 104);
+}
+
+.bass {
+  background-color: rgb(152, 73, 222);
+
+}
+
+.track-list-label {
+ color: rgba(230, 227, 227, 0.9);
+ font-weight: 400;
+ font-style: italic;
+ font-size: 12px;
+ margin-top: 0px;
+ margin-bottom: 5px;
+}
