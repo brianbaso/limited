@@ -53,25 +53,27 @@ function Timer(props) {
     };
 
     return (
-      <div className="timer-container">
-        <div className="timer-controls">
-          <span className="timer-digits">
-            {time.minutes.toString().padStart(2, '0')}:
-            {time.seconds.toString().padStart(2, '0')}
-          </span>
-          <button onClick={handlePlayPause} style={{ backgroundColor: buttonColor }}>
-            {buttonText}
-          </button>
-          <button onClick={handleRestart}>
-          Restart
-          </button>
-          <Link to={props.next}>
-            <button>
-              {props.next === "/start" ? "Done" : "Next →"}
+      <>
+        <span className="timer-digits">
+          {time.minutes.toString().padStart(2, '0')}:
+          {time.seconds.toString().padStart(2, '0')}
+        </span>
+        <div className="timer-container">
+          <div className="timer-controls">
+            <button onClick={handlePlayPause} style={{ backgroundColor: buttonColor }}>
+              {buttonText}
             </button>
-          </Link>
+            <button onClick={handleRestart}>
+            Restart
+            </button>
+            <Link to={props.next}>
+              <button>
+                {props.next === "/start" ? "Done" : "Next →"}
+              </button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 

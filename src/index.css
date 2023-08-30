@@ -163,6 +163,7 @@ input {
 .timer-container {
   display: flex;
   padding-top: 5px;
+  justify-content: center;
 }
 
 .timer-controls {
@@ -173,7 +174,7 @@ input {
 }
 
 .timer-digits {
-  font-size: 2.5em;
+  font-size: 3em;
   font-weight: 700;
   background: linear-gradient(to right, rgb(152, 73, 222), rgba(74, 45, 224));
   -webkit-background-clip: text;
@@ -184,7 +185,7 @@ input {
 
 /* Global */
 .main-container {
-  transform: scale(1.3);
+  transform: scale(1.25);
 }
 
 .b-container {
@@ -387,6 +388,7 @@ hr.solid {
   gap: 8px;
   list-style-type: none;
   text-align: left;
+  padding-left: 0;
 }
 
 .track-list-item {
@@ -398,7 +400,6 @@ hr.solid {
   font-family: inherit;
   transition: border-color 0.25s;
   box-shadow: 1px 1px 1px 1px rgba(123, 135, 211, 0.3);
-
 }
 
 .harmony  {
