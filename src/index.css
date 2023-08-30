@@ -427,3 +427,8 @@ hr.solid {
  margin-top: 0px;
  margin-bottom: 5px;
 }
+
+/* Arrangement */
+.arrange-title {
+  margin-top: 40px;
+}

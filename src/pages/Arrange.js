@@ -14,14 +14,14 @@ function Arrange() {
       </div>
       <div className="b-container">
         <div>
-            <h2>Arrange Your Track</h2>
-            <ol>
-              <li>Intro</li>
-              <li>Verse</li>
-              <li>Chorus</li>
-            </ol>
+          <Timer minutes={5} next={nextPage} />
+          <h2 className="arrange-title">Arrange Your Track</h2>
+          <ol>
+            <li>Intro</li>
+            <li>Verse</li>
+            <li>Chorus</li>
+          </ol>
         </div>
-        <Timer minutes={5} next={nextPage} />
       </div>
     </div>
   );
