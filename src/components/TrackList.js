@@ -20,12 +20,24 @@ import { MyContext } from '../MyContext';
     Create an ordered list with the selected tracks. Also create a button "Generate new tracks" that will randomize new tracks.
 */
 const DRUM_OPTIONS = [
-    "Any Drums With Clap",
-    "Any Drums With Snare",
-    "Any Drums No Hihats",
-    "Any Drums With Ride",
-    "Any Stock DAW Drums"
+  "Any Drums With Clap",
+  "Any Drums With Snare",
+  "Any Drums No Hihats",
+  "Any Drums With Ride",
+  "Any Stock DAW Drums"
 ];
+
+const EFFECTS = [
+  "Filter", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
+];
+
+const NOTES = [
+  "any notes", "any notes", "three notes", "two notes"
+]
+
+const CHORDS = [
+  "any chords", "any chords", "three chords", "two chords"
+]
 
 const trackList = {
   "lead-and-rhythm": ["Piano", "Rhodes", "Bells", "Guitar", "Saxophone"],
@@ -41,18 +53,46 @@ function TrackList() {
 
   useEffect(() => {
     generateRandomTracks();
-    console.log(cacheSounds)
+    console.log('cache', cacheSounds)
   }, []);
 
   const generateRandomTracks = () => {
+
+    // Scoped in order to reset everytime function is called
+    const EFFECTS = [
+      "Filter", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
+    ];
+    
+    const NOTES = [
+      "any notes", "any notes", "three notes", "two notes"
+    ]
+    
+    const CHORDS = [
+      "any chords", "any chords", "three chords", "two chords"
+    ]
+
     const leadAndRhythmTracks = [...cacheSounds["lead-and-rhythm"]];
     const selectedLeadAndRhythm = [];
 
     // Randomly select two lead-and-rhythm tracks
     while (selectedLeadAndRhythm.length < 2 && leadAndRhythmTracks.length > 0) {
-      const randomIndex = Math.floor(Math.random() * leadAndRhythmTracks.length);
-      const track = leadAndRhythmTracks.splice(randomIndex, 1)[0];
-      selectedLeadAndRhythm.push(track);
+      const randomIndexTrack = Math.floor(Math.random() * leadAndRhythmTracks.length);
+      const track = leadAndRhythmTracks.splice(randomIndexTrack, 1)[0];
+
+      const randomIndexFx = Math.floor(Math.random() * EFFECTS.length);
+      const fx = EFFECTS.splice(randomIndexFx, 1)[0];
+
+      // Select chords option for first L&R, and notes for second
+      if (selectedLeadAndRhythm.length > 0) {
+        const randomIndexNotes = Math.floor(Math.random() * NOTES.length);
+        const notes = NOTES.splice(randomIndexNotes, 1)[0];
+        selectedLeadAndRhythm.push(track + " with " + fx + " using " + notes);
+      } else {
+        const randomIndexChords = Math.floor(Math.random() * CHORDS.length);
+        const chords = CHORDS.splice(randomIndexChords, 1)[0];
+        selectedLeadAndRhythm.push(track + " with " + fx + " using " + chords);
+      }
+
     }
 
     // Randomly select one bass track
@@ -61,17 +101,33 @@ function TrackList() {
     // Randomly select one drums track
     const selectedDrums = drumSounds[Math.floor(Math.random() * drumSounds.length)];
 
-    setSelectedTracks([...selectedLeadAndRhythm, selectedBass, selectedDrums]);
+    const tracks = {
+      "lead-and-rhythm": selectedLeadAndRhythm,
+      "bass": selectedBass,
+      "drums": selectedDrums
+    }
+
+    setSelectedTracks(tracks);
+    console.log('TRACKS',selectedTracks)
+    // console.log('here', selectedLeadAndRhythm, selectedBass, selectedDrums)
   };
 
   return (
     <div>
-      <h2>Tracks Allowed</h2>
-      <ol>
+      {/* <h2>Tracks Allowed</h2> */}
+      {/* <ol>
         {selectedTracks.map((track, index) => (
           <li key={index}>{track}</li>
         ))}
-      </ol>
+      </ol> */}
+      {/* Wait until all keys are loaded */}
+      {Object.keys(selectedTracks).length === 3 &&
+        <ul className="track-list">
+          <li className="track-list-item harmony"><p className="track-list-label">Harmony</p>{selectedTracks["lead-and-rhythm"][0]}</li>
+          <li className="track-list-item melody"><p className="track-list-label">Melody</p>{selectedTracks["lead-and-rhythm"][1]}</li>
+          <li className="track-list-item bass"><p className="track-list-label">Bass</p>{selectedTracks["bass"]}</li>
+          <li className="track-list-item drums"><p className="track-list-label">Drums</p>{selectedTracks["drums"]}</li>
+        </ul>} 
       <button onClick={generateRandomTracks}>Generate New Tracks</button>
     </div>
   );

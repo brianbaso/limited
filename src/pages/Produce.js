@@ -19,10 +19,10 @@ function Produce() {
     <div className="main-container">
       <div className="a-container">
         <CreateProgressBar step={"production"} />
+        <Timer minutes={30} next={"/arrange"} />
       </div>
       <div className="b-container">
         <TrackList />
-        <Timer minutes={30} next={"/arrange"} />
       </div>
     </div>
   );
