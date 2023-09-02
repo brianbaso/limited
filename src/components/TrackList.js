@@ -27,24 +27,6 @@ const DRUM_OPTIONS = [
   "Any Stock DAW Drums"
 ];
 
-const EFFECTS = [
-  "Filter", "1/4 Delay", "1/8 Delay", "Arpeggio", "Small Reverb", "Big Reverb", "Slap Delay"
-];
-
-const NOTES = [
-  "any notes", "any notes", "three notes", "two notes"
-]
-
-const CHORDS = [
-  "any chords", "any chords", "three chords", "two chords"
-]
-
-const trackList = {
-  "lead-and-rhythm": ["Piano", "Rhodes", "Bells", "Guitar", "Saxophone"],
-  "bass": ["808 Bass", "Bass guitar", "Double Bass"],
-  "drums": ["Pad Drums", "Loop Drum Sample", "Live Drums"]
-};
-
 function TrackList() {
   const [selectedTracks, setSelectedTracks] = useState([]);
   const { cacheSounds } = useContext(MyContext);
@@ -53,7 +35,7 @@ function TrackList() {
 
   useEffect(() => {
     generateRandomTracks();
-    console.log('cache', cacheSounds)
+    // console.log('cache', cacheSounds)
   }, []);
 
   const generateRandomTracks = () => {
@@ -108,7 +90,7 @@ function TrackList() {
     }
 
     setSelectedTracks(tracks);
-    console.log('TRACKS',selectedTracks)
+    // console.log('TRACKS',selectedTracks)
     // console.log('here', selectedLeadAndRhythm, selectedBass, selectedDrums)
   };
 
