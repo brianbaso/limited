@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { auth, createUserWithEmailAndPassword } from '../firebase/firebase';
+import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from '../MyContext';
 import { toast } from 'react-toastify';
+import google from '../assets/images/google.png'
+
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { updateCacheSounds } = useContext(MyContext);
   const navigate = useNavigate();
   const inputRef = useRef(null)
   const buttonRef = useRef(null)
@@ -14,6 +20,23 @@ const SignUpForm = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []); 
+
+
+  // Cache the sounds when a user signs in to reduce api calls 
+  const saveSoundsToCache = async (userId) => {
+    debugger;
+    const db = getFirestore();
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const sounds = JSON.parse(docSnap.data()["sounds"]);
+      updateCacheSounds(sounds)
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
 
   const handleSignUp = async () => {
     try {
@@ -33,6 +56,28 @@ const SignUpForm = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+  
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const isNewUser = getAdditionalUserInfo(result).isNewUser
+
+      if (isNewUser) {
+        navigate("/sounds/lead-and-rhythm")
+      } else {
+        const user = result.user;
+        saveSoundsToCache(user.uid);
+        navigate("/start");
+        toast.success('Sign in success. Welcome back!')
+      }
+    } catch (error) {
+      console.log(error.message)
+      toast.error('Google sign in failed. Please try again.');
+    }
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -42,6 +87,8 @@ const SignUpForm = () => {
 
   return (
     <div className="auth-form">
+      <button onClick={handleGoogleLogin}><div className="google-button"><img src={google} alt="Google" />Sign in with Google</div></button>
+      <hr className="solid"/>
       <input
         type="email"
         placeholder="Email"
