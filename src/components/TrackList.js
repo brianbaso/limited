@@ -1,24 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { MyContext } from '../MyContext';
+import React, { useEffect, useState } from 'react';
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { auth } from '../firebase/firebase';
 
-/* Rules:
-   - Only one drums
-   - Only one bass
-   - Only one piano
-*/
-
-/*
-    Make me a component in react that utilizes an object like the following, each value array can be different lengths but the keys will stay the same:
-    {
-        "lead-and-rhythm": ["Piano", "Rhodes", "Bells", "Guitar", "Saxaphone"],
-        "bass": ["808 Bass", "Bass guitar", "Double Bass"],
-        "drums": ["Pad Drums", "Loop Drum Sample", "Live Drums"]
-    }
-
-    With this, generate me a random list of two lead-and-rhythm, one bass, and one drums. Make sure that the same lead-and-rhythm is not chosen twice.
-    
-    Create an ordered list with the selected tracks. Also create a button "Generate new tracks" that will randomize new tracks.
-*/
 const DRUM_OPTIONS = [
   "Any Drums With Clap",
   "Any Drums With Snare",
@@ -29,16 +12,33 @@ const DRUM_OPTIONS = [
 
 function TrackList() {
   const [selectedTracks, setSelectedTracks] = useState([]);
-  const { cacheSounds } = useContext(MyContext);
-  // Add mandatory drum options
-  const drumSounds = cacheSounds["drums"].concat(DRUM_OPTIONS);
+  const [sounds, setSounds] = useState([]);
 
   useEffect(() => {
-    generateRandomTracks();
-    // console.log('cache', cacheSounds)
-  }, []);
+    const getSounds = async (userId) => {
+      try {
+        const db = getFirestore();
+        const docRef = doc(db, "users", userId);
+        const docSnap = await getDoc(docRef);
 
-  const generateRandomTracks = () => {
+        if (docSnap.exists()) {
+          const res = JSON.parse(docSnap.data()["sounds"]);
+          generateRandomTracks(res)
+          setSounds(res)
+        }
+      } catch (error) {
+        console.error('Error getting sounds: ', error)
+      }
+    }
+
+    const user = auth.currentUser
+    if (user) getSounds(user.uid);
+  }, [])
+
+  const generateRandomTracks = (sounds) => {
+
+    // Add mandatory drum options
+    const drumSounds = sounds["drums"].concat(DRUM_OPTIONS);
 
     // Scoped in order to reset everytime function is called
     const EFFECTS = [
@@ -53,7 +53,7 @@ function TrackList() {
       "any chords", "any chords", "three chords", "two chords"
     ]
 
-    const leadAndRhythmTracks = [...cacheSounds["lead-and-rhythm"]];
+    const leadAndRhythmTracks = [...sounds["lead-and-rhythm"]];
     const selectedLeadAndRhythm = [];
 
     // Randomly select two lead-and-rhythm tracks
@@ -78,7 +78,7 @@ function TrackList() {
     }
 
     // Randomly select one bass track
-    const selectedBass = cacheSounds["bass"][Math.floor(Math.random() * cacheSounds["bass"].length)];
+    const selectedBass = sounds["bass"][Math.floor(Math.random() * sounds["bass"].length)];
 
     // Randomly select one drums track
     const selectedDrums = drumSounds[Math.floor(Math.random() * drumSounds.length)];
@@ -90,18 +90,10 @@ function TrackList() {
     }
 
     setSelectedTracks(tracks);
-    // console.log('TRACKS',selectedTracks)
-    // console.log('here', selectedLeadAndRhythm, selectedBass, selectedDrums)
   };
 
   return (
     <div>
-      {/* <h2>Tracks Allowed</h2> */}
-      {/* <ol>
-        {selectedTracks.map((track, index) => (
-          <li key={index}>{track}</li>
-        ))}
-      </ol> */}
       {/* Wait until all keys are loaded */}
       {Object.keys(selectedTracks).length === 3 &&
         <ul className="track-list">
@@ -110,7 +102,7 @@ function TrackList() {
           <li className="track-list-item bass"><p className="track-list-label">Bass</p>{selectedTracks["bass"]}</li>
           <li className="track-list-item drums"><p className="track-list-label">Drums</p>{selectedTracks["drums"]}</li>
         </ul>} 
-      <button onClick={generateRandomTracks}>Generate New Tracks</button>
+      <button onClick={() => generateRandomTracks(sounds)}>Generate New Tracks</button>
     </div>
   );
 }

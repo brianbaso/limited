@@ -24,7 +24,7 @@ const SignUpForm = () => {
 
   // Cache the sounds when a user signs in to reduce api calls 
   const saveSoundsToCache = async (userId) => {
-    debugger;
+    // debugger;
     const db = getFirestore();
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
